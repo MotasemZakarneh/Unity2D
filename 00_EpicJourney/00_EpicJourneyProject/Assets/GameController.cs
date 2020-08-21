@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
 
-    enum StoryState { Riding, Thirsty, AttackedByEnemies, Bed, OnGround, Knife, EnemiesAreBack, FightThem, NoCamel }
+    enum StoryState { Riding, Thirsty, AttackedByEnemies,StuckInRoom, Bed, OnGround, Knife, EnemiesAreBack, FightThem }
     StoryState currentStoryState;
 
 
@@ -30,7 +30,7 @@ public class GameController : MonoBehaviour
         }
         else if(currentStoryState == StoryState.Thirsty)
         {
-            print("01");
+            Writer.Write("01");
             Writer.AddDecision("A");
             if (Input.GetKeyDown(KeyCode.A))
             {
@@ -40,7 +40,17 @@ public class GameController : MonoBehaviour
         }
         else if(currentStoryState == StoryState.AttackedByEnemies)
         {
-            print("02");
+            Writer.Write("02");
+            Writer.AddDecision("S");
+            if(Input.GetKeyDown(KeyCode.S))
+            {
+                Writer.ClearDecisions();
+                currentStoryState = StoryState.StuckInRoom;
+            }
+        }
+        else if(currentStoryState == StoryState.StuckInRoom)
+        {
+            Writer.Write("03");
             Writer.AddDecision("B");
             Writer.AddDecision("K");
             Writer.AddDecision("O");
@@ -49,12 +59,12 @@ public class GameController : MonoBehaviour
                 Writer.ClearDecisions();
                 currentStoryState = StoryState.Bed;
             }
-            else if(Input.GetKeyDown(KeyCode.K))
+            else if (Input.GetKeyDown(KeyCode.K))
             {
                 Writer.ClearDecisions();
                 currentStoryState = StoryState.Knife;
             }
-            else if(Input.GetKeyDown(KeyCode.O))
+            else if (Input.GetKeyDown(KeyCode.O))
             {
                 Writer.ClearDecisions();
                 currentStoryState = StoryState.OnGround;
@@ -62,17 +72,17 @@ public class GameController : MonoBehaviour
         }
         else if(currentStoryState == StoryState.Bed)
         {
-            print("03_B");
+            Writer.Write("04_A");
             Writer.AddDecision("A");
             if (Input.GetKeyDown(KeyCode.A))
             {
                 Writer.ClearDecisions();
-                currentStoryState = StoryState.AttackedByEnemies;
+                currentStoryState = StoryState.StuckInRoom;
             }
         }
         else if(currentStoryState == StoryState.Knife)
         {
-            print("03_K");
+            Writer.Write("04_B");
             Writer.AddDecision("E");
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -82,17 +92,17 @@ public class GameController : MonoBehaviour
         }
         else if(currentStoryState == StoryState.OnGround)
         {
-            print("03_O");
+            Writer.Write("04_C");
             Writer.AddDecision("A");
             if (Input.GetKeyDown(KeyCode.A))
             {
                 Writer.ClearDecisions();
-                currentStoryState = StoryState.AttackedByEnemies;
+                currentStoryState = StoryState.StuckInRoom;
             }
         }
         else if(currentStoryState == StoryState.EnemiesAreBack)
         {
-            print("04");
+            Writer.Write("05");
             Writer.AddDecision("F");
             if (Input.GetKeyDown(KeyCode.F))
             {
@@ -102,17 +112,7 @@ public class GameController : MonoBehaviour
         }
         else if(currentStoryState == StoryState.FightThem)
         {
-            print("05");
-            Writer.AddDecision("N");
-            if (Input.GetKeyDown(KeyCode.N))
-            {
-                Writer.ClearDecisions();
-                currentStoryState = StoryState.NoCamel;
-            }
-        }
-        else if(currentStoryState == StoryState.NoCamel)
-        {
-            print("06");
+            Writer.Write("06");
             Writer.AddDecision("R");
             if (Input.GetKeyDown(KeyCode.R))
             {
@@ -120,9 +120,7 @@ public class GameController : MonoBehaviour
                 currentStoryState = StoryState.Riding;
             }
         }
-
     }
-
 
 
 }
