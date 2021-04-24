@@ -43,4 +43,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef25ed0d07ca797508878905a6bbced7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sfxTemplate: {fileID: 0}
+  sfxTemplate: {fileID: 3356660642415147401, guid: ca85aad6cd5d6772e8dfa9cc15f5e6de, type: 3}
